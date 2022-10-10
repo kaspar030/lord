@@ -1,0 +1,13 @@
+syntax = "proto3";
+package lord;
+
+service Lord {
+    rpc Version (VersionRequest) returns (VersionReply);
+}
+
+message VersionRequest {
+}
+
+message VersionReply {
+    string version = 1;
+}
