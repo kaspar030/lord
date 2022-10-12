@@ -3,11 +3,21 @@ package lord;
 
 service Lord {
     rpc Version (VersionRequest) returns (VersionReply);
+    rpc GetMinions (MinionsRequest) returns (MinionsReply);
 }
 
-message VersionRequest {
-}
+message VersionRequest {}
 
 message VersionReply {
     string version = 1;
+}
+
+message MinionsRequest {}
+message MinionsReply {
+    repeated Minion minions = 1;
+}
+
+message Minion {
+    string ip = 1;
+    uint64 last_seen = 2;
 }

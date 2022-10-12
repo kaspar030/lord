@@ -15,5 +15,17 @@ tokio = { version = "1", features = ["full"] }
 tonic = "0.8"
 prost = "0.11"
 
+[[bin]]
+name = "lordd"
+path = "src/server.rs"
+
+[[bin]]
+name = "lordcli"
+path = "src/client.rs"
+
+[[bin]]
+name = "ccc"
+path = "src/ccc.rs"
+
 [build-dependencies]
 tonic-build = "0.8"
