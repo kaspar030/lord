@@ -1,5 +1,4 @@
 use super::SidMap;
-use anyhow::anyhow;
 use smol_str::SmolStr;
 use std::fmt::Display;
 

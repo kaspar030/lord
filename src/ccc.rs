@@ -1,12 +1,7 @@
-use std::net::ToSocketAddrs;
-use std::sync::Mutex;
-
 use anyhow::{anyhow, Error};
 use base64::CharacterSet;
 use clap::{Parser, Subcommand};
 use coap::CoAPClient;
-use coap_lite::{CoapRequest, RequestType as Method};
-use once_cell::sync::Lazy;
 
 mod coreconf;
 
@@ -15,10 +10,6 @@ use coreconf::{cbor::Entry, SIDMAP};
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
-    /// Optional name to operate on
-    name: Option<String>,
-
-    /// Turn debugging information on
     #[arg(short, long, action = clap::ArgAction::Count)]
     debug: u8,
 
@@ -28,11 +19,20 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// does testing things
+    /// get a CORECONF resource
     #[allow(non_camel_case_types)]
-    get_sid { host: String, sid: String },
+    get_sid {
+        /// host address of CORECONF device
+        host: String,
+        /// CORECONF resource as SID or identifier
+        sid: String,
+    },
+    /// get a list of exported SIDs/identifiers
     #[allow(non_camel_case_types)]
-    get_sid_list { host: String },
+    get_sid_list {
+        /// host address of CORECONF device
+        host: String,
+    },
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
