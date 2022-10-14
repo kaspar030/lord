@@ -1,0 +1,92 @@
+{
+  "assignment-ranges": [
+    {
+      "entry-point": 1400,
+      "size": 100
+    }
+  ],
+  "module-name": "iana-hardware",
+  "module-revision": "2018-03-13",
+  "items": [
+    {
+      "namespace": "module",
+      "identifier": "iana-hardware",
+      "sid": 1400
+    },
+    {
+      "namespace": "identity",
+      "identifier": "backplane",
+      "sid": 1401
+    },
+    {
+      "namespace": "identity",
+      "identifier": "battery",
+      "sid": 1402
+    },
+    {
+      "namespace": "identity",
+      "identifier": "chassis",
+      "sid": 1403
+    },
+    {
+      "namespace": "identity",
+      "identifier": "container",
+      "sid": 1404
+    },
+    {
+      "namespace": "identity",
+      "identifier": "cpu",
+      "sid": 1405
+    },
+    {
+      "namespace": "identity",
+      "identifier": "energy-object",
+      "sid": 1406
+    },
+    {
+      "namespace": "identity",
+      "identifier": "fan",
+      "sid": 1407
+    },
+    {
+      "namespace": "identity",
+      "identifier": "hardware-class",
+      "sid": 1408
+    },
+    {
+      "namespace": "identity",
+      "identifier": "module",
+      "sid": 1409
+    },
+    {
+      "namespace": "identity",
+      "identifier": "port",
+      "sid": 1410
+    },
+    {
+      "namespace": "identity",
+      "identifier": "power-supply",
+      "sid": 1411
+    },
+    {
+      "namespace": "identity",
+      "identifier": "sensor",
+      "sid": 1412
+    },
+    {
+      "namespace": "identity",
+      "identifier": "stack",
+      "sid": 1413
+    },
+    {
+      "namespace": "identity",
+      "identifier": "storage-drive",
+      "sid": 1414
+    },
+    {
+      "namespace": "identity",
+      "identifier": "unknown",
+      "sid": 1415
+    }
+  ]
+}
