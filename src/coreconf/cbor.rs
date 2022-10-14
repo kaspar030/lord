@@ -98,17 +98,18 @@ impl Entry {
 }
 
 impl Display for Entry {
+    // verbatim copy of below debug impl
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Entry::Map(v) => {
                 f.debug_map()
-                    .entries(v.iter().map(|(k, v)| ("a", "b")))
+                    .entries(v.iter().map(|(k, v)| (format!("{}", k), v)))
                     .finish()?;
             }
-            Entry::String(s) => f.write_str(&s)?,
+            Entry::String(s) => f.write_fmt(format_args!("\"{}\"", &s))?,
             Entry::Bool(v) => f.write_fmt(format_args!("{}", v))?,
             Entry::Integer(v) => f.write_fmt(format_args!("{}", v))?,
-            Entry::Array(v) => f.write_fmt(format_args!("{:?}", v))?,
+            Entry::Array(v) => f.write_fmt(format_args!("{:#?}", v))?,
         }
         Ok(())
     }
@@ -122,7 +123,7 @@ impl std::fmt::Debug for Entry {
                     .entries(v.iter().map(|(k, v)| (format!("{}", k), v)))
                     .finish()?;
             }
-            Entry::String(s) => f.write_str(&s)?,
+            Entry::String(s) => f.write_fmt(format_args!("\"{}\"", &s))?,
             Entry::Bool(v) => f.write_fmt(format_args!("{}", v))?,
             Entry::Integer(v) => f.write_fmt(format_args!("{}", v))?,
             Entry::Array(v) => f.write_fmt(format_args!("{:#?}", v))?,
