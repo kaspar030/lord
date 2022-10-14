@@ -26,6 +26,8 @@ enum Commands {
         host: String,
         /// CORECONF resource as SID or identifier
         sid: String,
+        /// optional k parameter
+        k: Option<Vec<String>>,
     },
     /// get a list of exported SIDs/identifiers
     #[allow(non_camel_case_types)]
@@ -38,7 +40,7 @@ enum Commands {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
     match &cli.command {
-        Some(Commands::get_sid { host, sid }) => {
+        Some(Commands::get_sid { host, sid, k }) => {
             let sid = match usize::from_str_radix(sid, 10) {
                 Ok(v) => v,
                 Err(_) => {
@@ -49,7 +51,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
             };
 
-            println!("{:#?}", get_sid(host, sid)?)
+            println!("{:#?}", get_sid(host, sid, k)?)
         }
         Some(Commands::get_sid_list { host }) => get_sid_list(host)?,
         None => {}
@@ -67,8 +69,21 @@ impl std::fmt::Display for SidDecodeError {
     }
 }
 
-fn get_sid(host: &str, sid: usize) -> Result<Entry, Box<dyn std::error::Error>> {
-    let url = format!("coap://{}/c/{}", host, encode_sid(sid));
+fn get_sid(
+    host: &str,
+    sid: usize,
+    k: &Option<Vec<String>>,
+) -> Result<Entry, Box<dyn std::error::Error>> {
+    let query = if let Some(k_vec) = k {
+        let mut k = "?k=".to_string();
+        k.push_str(&k_vec.join(",")[..]);
+        k
+    } else {
+        "".to_string()
+    };
+    let url = format!("coap://{}/c/{}{}", host, encode_sid(sid), query);
+    println!("coap url: {}", &url);
+
     let response = CoAPClient::get(&url)?;
     let mut parsed = coreconf::cbor::Entry::parse(&response.message.payload)?;
     parsed.apply_sidmap(&coreconf::SIDMAP);
