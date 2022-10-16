@@ -1,5 +1,6 @@
 use std::fmt::Display;
 
+use anyhow::Context;
 use indexmap::IndexMap;
 
 use thiserror::Error;
@@ -70,7 +71,8 @@ impl TryFrom<(&Sid, serde_cbor::Value)> for Entry {
 
 impl Entry {
     pub fn parse(cbor: &[u8]) -> Result<Self, Box<dyn std::error::Error>> {
-        let cbor: serde_cbor::Value = serde_cbor::from_slice(cbor)?;
+        let cbor: serde_cbor::Value =
+            serde_cbor::from_slice(cbor).context("parsing cbor result failed")?;
 
         Ok(Entry::try_from((&Sid::Absolute(0), cbor))?)
     }
